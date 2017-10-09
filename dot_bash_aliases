@@ -1,0 +1,34 @@
+alias ps='ps auxf'
+alias openports='netstat -nape --inet'
+alias ns='netstat -alnp --protocol=inet | grep -v CLOSE_WAIT | cut -c-6,21-94 | tail -n +2'
+alias du1='du -h --max-depth=1'
+alias df='df -h'
+alias ll='ls -alh'
+
+# Alias chmod commands
+alias mx='chmod a+x'
+alias 000='chmod 000'
+alias 644='chmod 644'
+alias 755='chmod 755'
+
+alias ..='cd ..'
+alias cp='cp -r'
+alias rcp='rsync -a --stats --progress'
+alias mv='mv -r'
+alias rmv='rsync -a --remove-source-files --stats --progress'
+alias mkdir='mkdir -p'
+
+# Import bash history into container
+function basher() {
+    if [[ $1 = 'run' ]]
+    then
+        shift
+        /usr/bin/docker run -e \
+            HIST_FILE=/root/.bash_history \
+            -v $HOME/.bash_history:/root/.bash_history \
+            "$@"
+    else
+        /usr/bin/docker "$@"
+    fi
+}
+alias docker=basher

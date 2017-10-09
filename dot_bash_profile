@@ -1,0 +1,22 @@
+export EDITOR=vim
+export PATH=$PATH:~/bin
+
+# http://unix.stackexchange.com/questions/1288/preserve-bash-history-in-multiple-terminal-windows
+export HISTCONTROL=ignoreboth:erasedups # no duplicate entries
+export HISTSIZE=-1                      # big big history
+export HISTFILESIZE=-1                  # big big history
+shopt -s histappend                     # append to history, don't overwrite it
+
+# Save and reload the history after each command finishes
+export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
+
+case "$(uname -s)" in
+    Linux*)
+        [[ -f "/etc/bash_completion" ]] && source "/etc/bash_completion"
+        ;;
+    Darwin*)
+        [[ -f "$(brew --prefix)/etc/bash_completion" ]] && source "$(brew --prefix)/etc/bash_completion"
+        ;;
+    *)
+esac
+
