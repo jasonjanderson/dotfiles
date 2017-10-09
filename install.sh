@@ -10,15 +10,23 @@ do
     [[ -d "$i" ]] && cp -vr "$i" ~/`basename ${i/dot_/.}`
 done
 
-cd ~
-git clone https://github.com/magicmonty/bash-git-prompt.git .bash-git-prompt --depth=1
+# Copy private dotfiles prefixed with "private_dot_" into home directory; replacing "private_dot_" with "."
+for i in $base_dir/private_dot_*
+do
+    [[ -f "$i" ]] && cp -v "$i" ~/`basename ${i/private_dot_/.}`
+    [[ -d "$i" ]] && cp -vr "$i" ~/`basename ${i/private_dot_/.}`
+done
 
-mkdir -p  .vim/autoload
-curl https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim -o .vim/autoload/pathogen.vim
+# Install git bash prompt for use inside of git project directories
+cd ~ && git clone https://github.com/magicmonty/bash-git-prompt.git .bash-git-prompt --depth=1
+
+# Enable Pathogen for ViM
+mkdir -p  ~/.vim/autoload
+curl https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim -o ~/.vim/autoload/pathogen.vim
 
 # Get Vim extensions
-mkdir -p  .vim/bundle
-cd .vim/bundle
+mkdir -p  ~/.vim/bundle
+cd ~/.vim/bundle
 
 git clone https://github.com/tpope/vim-sensible.git
 git clone https://github.com/Yggdroot/indentLine.git
