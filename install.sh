@@ -7,14 +7,14 @@ base_dir=$( cd $(dirname $0) ; pwd -P )
 for i in $base_dir/dot_*
 do
     [[ -f "$i" ]] && cp -v "$i" ~/`basename ${i/dot_/.}`
-    [[ -d "$i" ]] && cp -vr "$i" ~/`basename ${i/dot_/.}`
+    [[ -d "$i" ]] && cp -vr "$i/" ~/`basename ${i/dot_/.}`
 done
 
 # Copy private dotfiles prefixed with "private_dot_" into home directory; replacing "private_dot_" with "."
 for i in $base_dir/private_dot_*
 do
     [[ -f "$i" ]] && cp -v "$i" ~/`basename ${i/private_dot_/.}`
-    [[ -d "$i" ]] && cp -vr "$i" ~/`basename ${i/private_dot_/.}`
+    [[ -d "$i" ]] && cp -vr "$i/" ~/`basename ${i/private_dot_/.}`
 done
 
 # Install git bash prompt for use inside of git project directories
